@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PostForm from "../components/PostForm";
 
 export default function PostCreatePage() {
   const navigate = useNavigate();
@@ -36,20 +37,14 @@ export default function PostCreatePage() {
   return (
     <div>
       <h2>게시글 작성</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="제목"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <textarea
-          placeholder="내용"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <button type="submit">작성</button>
-      </form>
+      <PostForm
+        title={title}
+        content={content}
+        onChangeTitle={(e) => setTitle(e.target.value)}
+        onChangeContent={(e) => setContent(e.target.value)}
+        onSubmit={handleSubmit}
+        submitText="작성"
+      />
     </div>
   );
 }
