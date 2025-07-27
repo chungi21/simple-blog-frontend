@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 
 export default function PostListPage() {
+  const { email } = useParams(); // 동적 경로에서 email 받아오기
   const [posts, setPosts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // URL에서 page 파라미터 가져오기 (없으면 0)
   const pageParam = parseInt(searchParams.get("page")) || 0;
   const [page, setPage] = useState(pageParam);
 
   useEffect(() => {
-    fetch(`http://localhost:9000/api/posts?page=${page}`)
+    const baseUrl = email
+      ? `http://localhost:9000/api/posts/email/${email}`
+      : `http://localhost:9000/api/posts`;
+
+    fetch(`${baseUrl}?page=${page}`)
       .then((res) => res.json())
       .then((resData) => {
         const { data } = resData;
@@ -22,9 +26,8 @@ export default function PostListPage() {
       .catch((err) => {
         console.error("게시글 목록 불러오기 실패:", err);
       });
-  }, [page]);
+  }, [email, page]);
 
-  // 페이지 변경 시 URL 파라미터도 변경
   const handlePageChange = (newPage) => {
     setPage(newPage);
     setSearchParams({ page: newPage });
@@ -34,18 +37,22 @@ export default function PostListPage() {
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
       <h1>게시글 목록</h1>
       <ul>
-        {posts.map((post) => (
-          <li
-            key={post.id}
-            style={{
-              borderBottom: "1px solid #ccc",
-              padding: "8px 0",
-            }}
-          >
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-          </li>
-        ))}
+        {posts.length === 0 ? (
+          <li style={{ padding: "8px 0", color: "#777" }}>작성된 게시글이 없습니다.</li>
+        ) : (
+          posts.map((post) => (
+            <li
+              key={post.id}
+              style={{
+                borderBottom: "1px solid #ccc",
+                padding: "8px 0",
+              }}
+            >
+              <h3>{post.title}</h3>
+              <p>{post.content}</p>
+            </li>
+          ))
+        )}
       </ul>
 
       <Pagination page={page} onPageChange={handlePageChange} totalPages={totalPages} />

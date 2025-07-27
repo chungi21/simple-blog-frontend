@@ -12,7 +12,13 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+
+        {/* 전체 조회 */}
         <Route path="/posts" element={<PostListPage />} />
+
+        {/* 이메일로 필터된 조회 */}
+        <Route path="/posts/:email" element={<PostListPage />} />
+
         <Route path="/posts/:id" element={<PostDetailPage />} />
 
         <Route
@@ -23,10 +29,9 @@ function App() {
             </ProtectedRoute>
           }
         />
-
       </Routes>
     </Router>
-  )
+  );
 }
 
 export default App;
