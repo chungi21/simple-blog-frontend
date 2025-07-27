@@ -10,10 +10,10 @@ export default function PostCreatePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
-
+    const token = localStorage.getItem("accessToken");
+    console.log("token : "+token)
     try {
-      const response = await fetch("http://localhost:8080/api/posts", {
+      const response = await fetch("http://localhost:9000/api/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,8 +26,8 @@ export default function PostCreatePage() {
         throw new Error("게시글 작성 실패");
       }
 
-      const data = await response.json();
-      navigate(`/posts/${data.id}`);
+      const result = await response.json();
+      navigate(`/posts/${result.data.id}`);
     } catch (error) {
       alert("게시글 작성 실패");
       console.error(error);

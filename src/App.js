@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import PostDetailPage from './pages/PostDetailPage';
 import PostCreatePage from "./pages/PostCreatePage";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import PostListPage from './pages/PostListPage';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/posts" element={<PostListPage />} />
         <Route path="/posts/:id" element={<PostDetailPage />} />
 
         <Route
