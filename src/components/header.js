@@ -29,12 +29,14 @@ export default function Header() {
         }
     };
 
+    // my info(내 블로그로 가기위해 정보 가져옴)
     useEffect(() => {
         if (isLoggedIn()) {
             fetchCurrentUser()
                 .then((res) => {
                     if (res.resultCode === "OK") {
                         setUser(res.data);
+                        localStorage.setItem("userEmail", res.data.email);
                     }
                 })
                 .catch((error) => {
@@ -55,6 +57,7 @@ export default function Header() {
                         {user && (
                             <Link to={`/posts/email/${user.email}`}>내 블로그</Link>
                         )}
+                        <Link to="/posts/create">글 쓰기</Link>
                         <Link to="/mypage">내 정보</Link>
                         <button onClick={handleLogout}>로그아웃</button>
                     </>
@@ -86,6 +89,7 @@ export default function Header() {
                                         내 블로그
                                     </Link>
                                 )}
+                                <Link to="/posts/create" onClick={() => setShowMobileMenu(false)}>글 쓰기</Link>
                                 <Link to="/mypage" onClick={() => setShowMobileMenu(false)}>
                                     내 정보
                                 </Link>
