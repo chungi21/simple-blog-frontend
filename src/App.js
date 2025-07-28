@@ -5,6 +5,7 @@ import PostDetailPage from './pages/PostDetailPage';
 import PostCreatePage from "./pages/PostCreatePage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PostListPage from './pages/PostListPage';
+import PostEditPage from "./pages/PostEditPage";
 import Header from './components/header';
 import './App.css';
 
@@ -26,6 +27,8 @@ function App() {
           <Route path="/posts/email/:email" element={<PostListPage />} />
 
           <Route path="/posts/:id" element={<PostDetailPage />} />
+
+          <Route path="/posts/:id/edit" element={<PostEditPage />} />
 
           <Route
             path="/posts/create"

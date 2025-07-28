@@ -24,3 +24,13 @@ export const fetchPostForEdit = async (id, token) => {
     });
     return res.data.data;
 };
+
+export const updatePost = async (id, updatedData, token) => {
+    const res = await axios.put(`${API_BASE}/posts/${id}`, updatedData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    });
+    return res.data;
+};
