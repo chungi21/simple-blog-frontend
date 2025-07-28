@@ -5,47 +5,43 @@ import { fetchCurrentUser } from "../api/memberApi";
 
 export default function Header() {
     const [login, setLogin] = useState(isLoggedIn());
-    const [user, setUser] = useState(null);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const location = useLocation();
+    const [user, setUser] = useState(null);
 
-    // 로그인 상태 체크
+    // Islogin
     useEffect(() => {
         setLogin(isLoggedIn());
         setShowMobileMenu(false);
     }, [location]);
 
-    console.log("accessToken:", localStorage.getItem("accessToken"));
-
-    // 로그인 유저 정보 가져오기
-    useEffect(() => {
-        fetchCurrentUser()
-            .then((res) => {
-                if (res.resultCode === "OK") {
-                    console.log("user email:", res.data.email);
-                    setUser(res.data);
-                }
-            })
-            .catch((error) => {
-                console.error("fetchCurrentUser error:", error);
-                setUser(null);
-            });
-    }, [location]);
-
-
+    // logout 
     const handleLogout = async () => {
         try {
             await fetch("/logout", {
                 method: "POST",
-                credentials: "include",
+                credentials: "include", // 쿠키 기반 인증 시 필수
             });
             localStorage.removeItem("accessToken");
             setLogin(false);
-            setUser(null);
         } catch (error) {
             console.error("로그아웃 실패:", error);
         }
     };
+
+    useEffect(() => {
+        if (isLoggedIn()) {
+            fetchCurrentUser()
+                .then((res) => {
+                    if (res.resultCode === "OK") {
+                        setUser(res.data);
+                    }
+                })
+                .catch((error) => {
+                    setUser(null);
+                });
+        }
+    }, [location]);
 
     return (
         <header className="header">
@@ -76,10 +72,7 @@ export default function Header() {
 
             {showMobileMenu && (
                 <div className="mobile-menu">
-                    <button
-                        className="close-btn"
-                        onClick={() => setShowMobileMenu(false)}
-                    >
+                    <button className="close-btn" onClick={() => setShowMobileMenu(false)}>
                         ✕
                     </button>
                     <div className="mobile-menu-content">
@@ -107,16 +100,10 @@ export default function Header() {
                             </>
                         ) : (
                             <>
-                                <Link
-                                    to="/login"
-                                    onClick={() => setShowMobileMenu(false)}
-                                >
+                                <Link to="/login" onClick={() => setShowMobileMenu(false)}>
                                     로그인
                                 </Link>
-                                <Link
-                                    to="/signup"
-                                    onClick={() => setShowMobileMenu(false)}
-                                >
+                                <Link to="/signup" onClick={() => setShowMobileMenu(false)}>
                                     회원가입
                                 </Link>
                             </>

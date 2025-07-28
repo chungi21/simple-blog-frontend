@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import PostItem from "../components/PostItem";
 
 export default function PostListPage() {
   const { email } = useParams(); // 동적 경로에서 email 받아오기
@@ -36,22 +37,13 @@ export default function PostListPage() {
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
       <h1>게시글 목록</h1>
-      <ul>
+      <ul style={{ paddingLeft: 0, listStyle: "none" }}>
         {posts.length === 0 ? (
-          <li style={{ padding: "8px 0", color: "#777" }}>작성된 게시글이 없습니다.</li>
+          <li style={{ padding: "8px 0", color: "#777" }}>
+            작성된 게시글이 없습니다.
+          </li>
         ) : (
-          posts.map((post) => (
-            <li
-              key={post.id}
-              style={{
-                borderBottom: "1px solid #ccc",
-                padding: "8px 0",
-              }}
-            >
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-            </li>
-          ))
+          posts.map((post) => <PostItem key={post.id} post={post} />)
         )}
       </ul>
 
