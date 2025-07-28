@@ -23,7 +23,7 @@ function App() {
           <Route path="/posts" element={<PostListPage />} />
 
           {/* 이메일로 필터된 조회 */}
-          <Route path="/posts/:email" element={<PostListPage />} />
+          <Route path="/posts/email/:email" element={<PostListPage />} />
 
           <Route path="/posts/:id" element={<PostDetailPage />} />
 
