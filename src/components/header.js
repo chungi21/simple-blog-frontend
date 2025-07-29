@@ -64,7 +64,7 @@ export default function Header() {
                 ) : (
                     <>
                         <Link to="/login">로그인</Link>
-                        <Link to="/signup">회원가입</Link>
+                        <Link to="/join">회원가입</Link>
                     </>
                 )}
             </nav>
@@ -107,7 +107,7 @@ export default function Header() {
                                 <Link to="/login" onClick={() => setShowMobileMenu(false)}>
                                     로그인
                                 </Link>
-                                <Link to="/signup" onClick={() => setShowMobileMenu(false)}>
+                                <Link to="/join" onClick={() => setShowMobileMenu(false)}>
                                     회원가입
                                 </Link>
                             </>

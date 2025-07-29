@@ -6,6 +6,7 @@ import PostCreatePage from "./pages/PostCreatePage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PostListPage from './pages/PostListPage';
 import PostEditPage from "./pages/PostEditPage";
+import JoinPage from './pages/JoinPage';
 import Header from './components/header';
 import './App.css';
 
@@ -19,6 +20,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+
+          <Route path="/join" element={<JoinPage />} />
 
           {/* 전체 조회 */}
           <Route path="/posts" element={<PostListPage />} />
