@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { isLoggedIn } from "../utils/auth";
+import { isLoggedIn, saveCurrentUserEmail, saveCurrentUserId, } from "../utils/auth";
 import { fetchCurrentUser } from "../api/memberApi";
 
 export default function Header() {
@@ -36,7 +36,8 @@ export default function Header() {
                 .then((res) => {
                     if (res.resultCode === "OK") {
                         setUser(res.data);
-                        localStorage.setItem("userEmail", res.data.email);
+                        saveCurrentUserEmail(res.data.email);
+                        saveCurrentUserId(res.data.id);
                     }
                 })
                 .catch((error) => {
