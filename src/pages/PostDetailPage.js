@@ -4,6 +4,7 @@ import { fetchPostDetail } from '../api/postApi';
 import PostActions from '../components/PostActions';
 import { isLoggedIn } from '../utils/auth';
 import CommentList from "../components/CommentList";
+import CommentForm from '../components/CommentForm';
 import axios from 'axios';
 
 function PostDetail() {
@@ -67,20 +68,10 @@ function PostDetail() {
 
       <h3>댓글 작성</h3>
       {isLoggedIn() ? (
-        <form onSubmit={handleCommentSubmit}>
-          <textarea
-            rows="4"
-            placeholder="댓글을 입력하세요"
-            value={commentContent}
-            onChange={(e) => setCommentContent(e.target.value)}
-            required
-            style={{ width: '100%', marginBottom: '10px' }}
-          />
-          <br />
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? '작성 중...' : '댓글 등록'}
-          </button>
-        </form>
+        <CommentForm
+          postId={post.id}
+          onSuccess={() => window.location.reload()} // 댓글 등록 후 새로고침
+        />
       ) : (
         <p>로그인 후 댓글을 작성할 수 있습니다.</p>
       )}
