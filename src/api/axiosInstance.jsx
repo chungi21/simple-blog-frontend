@@ -5,4 +5,13 @@ const axiosInstance = axios.create({
     withCredentials: true, // 모든 요청에 쿠키 포함
 });
 
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem("accessToken");
+  console.log("token ?? : ",token)
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default axiosInstance;

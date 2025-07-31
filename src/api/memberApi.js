@@ -4,11 +4,7 @@ export const fetchCurrentUser = async () => {
   const token = localStorage.getItem("accessToken");
 
   try {
-    const res = await axiosInstance.get("/api/members/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axiosInstance.get("/api/members/me", {});
 
     return res.data;
   } catch (err) {

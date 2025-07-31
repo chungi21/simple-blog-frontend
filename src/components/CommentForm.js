@@ -1,6 +1,6 @@
 // CommentForm.jsx
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance"; // 경로는 실제 프로젝트에 맞게 조정
 
 export default function CommentForm({
     postId,
@@ -17,27 +17,26 @@ export default function CommentForm({
         if (!content.trim()) return;
 
         setIsSubmitting(true);
-        const token = localStorage.getItem("accessToken");
 
         const url = commentId
-            ? `http://localhost:9000/api/comments/${commentId}`
-            : "http://localhost:9000/api/comments";
+            ? `/api/comments/${commentId}`
+            : "/api/comments";
         const method = commentId ? "put" : "post";
         const payload = commentId
             ? { content }
             : { postId: parseInt(postId), content };
 
         try {
-            await axios({
+            await axiosInstance({
                 method,
                 url,
                 data: payload,
                 headers: {
-                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
             });
-            onSuccess();
+
+            onSuccess(); // 댓글 등록 또는 수정 후 콜백
             setContent("");
         } catch (error) {
             console.error("댓글 처리 실패", error);

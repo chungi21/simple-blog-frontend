@@ -13,7 +13,7 @@ export default function PostEditPage() {
 
     useEffect(() => {
         // 수정용 게시글 데이터 불러오기
-        fetchPostForEdit(id, token)
+        fetchPostForEdit(id)
             .then((data) => {
                 setTitle(data.title);
                 setContent(data.content);

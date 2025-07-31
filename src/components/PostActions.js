@@ -15,11 +15,20 @@ export default function PostActions({ postId, authorEmail }) {
         if (!confirm) return;
 
         try {
-            await deletePost(postId, token);
+            await deletePost(postId);
             alert("삭제되었습니다.");
-            navigate("/");
+            navigate(`/posts/email/${currentUserEmail}`);
         } catch (error) {
-            alert("삭제 실패");
+            const errorMessage = error?.response?.data?.message;
+            console.log("errorMessage : ", errorMessage)
+            console.error("error object", error);
+            console.error("error.response", error.response);
+            if (errorMessage === "Posts with comments cannot be deleted") {
+                alert("댓글이 달린 게시물은 삭제할 수 없습니다.");
+            } else {
+                alert("삭제 실패");
+            }
+
             console.error(error);
         }
     };
