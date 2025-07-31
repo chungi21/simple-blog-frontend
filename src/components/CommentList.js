@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getCurrentUserId } from "../utils/auth";
-import CommentForm from "./CommentForm"; // ⭐️ 댓글 폼 컴포넌트 import
+import CommentForm from "./CommentForm"; // 댓글 폼 컴포넌트 import
 
 export default function CommentList({ postId }) {
     const [comments, setComments] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
-    const [editingCommentId, setEditingCommentId] = useState(null); // ⭐️ 수정 중인 댓글 ID
+    const [editingCommentId, setEditingCommentId] = useState(null); // 수정 중인 댓글 ID
 
     useEffect(() => {
         fetchComments();

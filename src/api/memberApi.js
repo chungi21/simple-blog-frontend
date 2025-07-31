@@ -1,18 +1,17 @@
-import axios from 'axios';
+import axiosInstance from "./axiosInstance";
 
 export const fetchCurrentUser = async () => {
-  const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem("accessToken");
+
   try {
-    const res = await axios.get('http://localhost:9000/api/members/me', {
+    const res = await axiosInstance.get("/api/members/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      withCredentials: true, // 쿠키 인증 시 필요
     });
-    
+
     return res.data;
   } catch (err) {
-    
     throw err;
   }
 };

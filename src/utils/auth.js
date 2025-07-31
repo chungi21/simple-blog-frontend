@@ -18,3 +18,25 @@ export function getCurrentUserId() {
   const id = localStorage.getItem("userId");
   return id ? parseInt(id) : null;
 }
+
+// 토큰 재발급
+export async function refreshAccessToken() {
+  try {
+    const response = await fetch("http://localhost:9000/auth/refresh", {
+      method: "POST",
+      credentials: "include", // 쿠키 포함
+    });
+
+    if (!response.ok) throw new Error("Token refresh failed");
+
+    const data = await response.json();
+    const newToken = data.data.accessToken;
+
+    localStorage.setItem("accessToken", newToken);
+
+    return true;
+  } catch (error) {
+    console.error("AccessToken 재발급 실패:", error);
+    return false;
+  }
+}

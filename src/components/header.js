@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { isLoggedIn, saveCurrentUserEmail, saveCurrentUserId, } from "../utils/auth";
+import { customFetch } from "../utils/request";
+import {
+    isLoggedIn,
+    saveCurrentUserEmail,
+    saveCurrentUserId,
+    refreshAccessToken, // 추가
+} from "../utils/auth";
 import { fetchCurrentUser } from "../api/memberApi";
 
 export default function Header() {
@@ -9,29 +15,37 @@ export default function Header() {
     const location = useLocation();
     const [user, setUser] = useState(null);
 
-    // Islogin
+    // 로그인 상태 업데이트
     useEffect(() => {
         setLogin(isLoggedIn());
         setShowMobileMenu(false);
     }, [location]);
 
-    // logout 
+    // 로그아웃
     const handleLogout = async () => {
         try {
-            await fetch("/logout", {
+            await customFetch("http://localhost:9000/logout", {
                 method: "POST",
-                credentials: "include", // 쿠키 기반 인증 시 필수
             });
             localStorage.removeItem("accessToken");
             setLogin(false);
+            setUser(null);
         } catch (error) {
             console.error("로그아웃 실패:", error);
         }
     };
 
-    // my info(내 블로그로 가기위해 정보 가져옴)
+    // 내 정보 가져오기 전에 accessToken 재발급 시도
     useEffect(() => {
-        if (isLoggedIn()) {
+        const fetchUserWithRefresh = async () => {
+            if (!isLoggedIn()) {
+                const refreshed = await refreshAccessToken();
+                if (!refreshed) {
+                    setUser(null);
+                    return;
+                }
+            }
+
             fetchCurrentUser()
                 .then((res) => {
                     if (res.resultCode === "OK") {
@@ -40,10 +54,12 @@ export default function Header() {
                         saveCurrentUserId(res.data.id);
                     }
                 })
-                .catch((error) => {
+                .catch(() => {
                     setUser(null);
                 });
-        }
+        };
+
+        fetchUserWithRefresh();
     }, [location]);
 
     return (
@@ -90,7 +106,9 @@ export default function Header() {
                                         내 블로그
                                     </Link>
                                 )}
-                                <Link to="/posts/create" onClick={() => setShowMobileMenu(false)}>글 쓰기</Link>
+                                <Link to="/posts/create" onClick={() => setShowMobileMenu(false)}>
+                                    글 쓰기
+                                </Link>
                                 <Link to="/mypage" onClick={() => setShowMobileMenu(false)}>
                                     내 정보
                                 </Link>

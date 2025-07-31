@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import PostItem from "../components/PostItem";
+import { customFetch } from "../utils/request";
 
 export default function PostListPage() {
-  const { email } = useParams(); // 동적 경로에서 email 받아오기
+  const { email } = useParams();
   const [posts, setPosts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,12 +14,11 @@ export default function PostListPage() {
   const [page, setPage] = useState(pageParam);
 
   useEffect(() => {
-    const baseUrl = email
+    const endpoint = email
       ? `http://localhost:9000/api/posts/email/${email}`
       : `http://localhost:9000/api/posts`;
 
-    fetch(`${baseUrl}?page=${page}`)
-      .then((res) => res.json())
+    customFetch(`${endpoint}?page=${page}`)
       .then((resData) => {
         const { data } = resData;
         setPosts(data.content);
@@ -47,7 +47,11 @@ export default function PostListPage() {
         )}
       </ul>
 
-      <Pagination page={page} onPageChange={handlePageChange} totalPages={totalPages} />
+      <Pagination
+        page={page}
+        onPageChange={handlePageChange}
+        totalPages={totalPages}
+      />
     </div>
   );
 }

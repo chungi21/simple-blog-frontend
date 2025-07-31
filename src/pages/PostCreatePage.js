@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PostForm from "../components/PostForm";
+import { customFetch } from "../utils/request"; // customFetch import
 
 export default function PostCreatePage() {
   const navigate = useNavigate();
@@ -10,23 +11,12 @@ export default function PostCreatePage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("accessToken");
-    console.log("token : "+token)
     try {
-      const response = await fetch("http://localhost:9000/api/posts", {
+      const result = await customFetch("http://localhost:9000/api/posts", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
         body: JSON.stringify({ title, content }),
       });
 
-      if (!response.ok) {
-        throw new Error("게시글 작성 실패");
-      }
-
-      const result = await response.json();
       navigate(`/posts/${result.data.id}`);
     } catch (error) {
       alert("게시글 작성 실패");

@@ -42,6 +42,7 @@ function PostDetail() {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
+          withCredentials: true
         }
       );
 
