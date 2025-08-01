@@ -6,7 +6,6 @@ export default function PostActions({ postId, authorEmail }) {
     const navigate = useNavigate();
     const token = localStorage.getItem('accessToken');
     const currentUserEmail = localStorage.getItem('userEmail'); // Header에서 미리 저장해둔 이메일
-    console.log("currentUserEmail : ", currentUserEmail);
 
     const isAuthor = currentUserEmail === authorEmail;
 
@@ -19,16 +18,7 @@ export default function PostActions({ postId, authorEmail }) {
             alert("삭제되었습니다.");
             navigate(`/posts/email/${currentUserEmail}`);
         } catch (error) {
-            const errorMessage = error?.response?.data?.message;
-            console.log("errorMessage : ", errorMessage)
-            console.error("error object", error);
-            console.error("error.response", error.response);
-            if (errorMessage === "Posts with comments cannot be deleted") {
-                alert("댓글이 달린 게시물은 삭제할 수 없습니다.");
-            } else {
-                alert("삭제 실패");
-            }
-
+            alert("삭제 실패");
             console.error(error);
         }
     };

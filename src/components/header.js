@@ -28,6 +28,9 @@ export default function Header() {
                 method: "POST",
             });
             localStorage.removeItem("accessToken");
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("userId");
+            Cookies.remove("refreshCookie", { path: "/" });
             setLogin(false);
             setUser(null);
         } catch (error) {
