@@ -9,6 +9,7 @@ import PostEditPage from "./pages/PostEditPage";
 import JoinPage from './pages/JoinPage';
 import MyPage from './components/Mypage';
 import Header from './components/header';
+import MainPage from './pages/MainPage';
 import './App.css';
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
+
+          <Route path="/" element={<MainPage />} />
+
           <Route path="/login" element={<LoginPage />} />
 
           <Route path="/join" element={<JoinPage />} />

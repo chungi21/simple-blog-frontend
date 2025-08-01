@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { customFetch } from "../utils/request";
+import Cookies from "js-cookie";
+
+
 import {
     isLoggedIn,
     saveCurrentUserEmail,
