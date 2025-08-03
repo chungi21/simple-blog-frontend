@@ -23,7 +23,7 @@ export default function RecentMembers() {
             <h2 className="text-xl font-semibold mb-3">새로 개설된 블로그에 방문해보세요!</h2>
             <ul className="space-y-2">
                 {members.map((member, idx) => (
-                    <li key={idx} className="border-b pb-2">
+                    <li key={idx} className="border border-[#eee] rounded-[10px] mb-[10px] hover:bg-gray-50">
                         <Link to={`/posts/email/${member.email}`}>
                             {member.nickname}
                         </Link>
