@@ -50,24 +50,29 @@ export default function PostListPage() {
   };
 
   return (
-    <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+    <div className="max-w-3xl mx-auto">
+
       {nickname && (
-        <h2 style={{ color: "#333", marginBottom: "16px" }}>
-          {nickname}의 블로그
-        </h2>
+        <div className="p-4">
+          <h2 className="p-14 bg-white rounded shadow text-3xl font-semibold mb-10">
+            {nickname}님의 블로그
+          </h2>
+        </div>
       )}
-
-      <h1>게시글 목록</h1>
-      <ul style={{ paddingLeft: 0, listStyle: "none" }}>
-        {posts.length === 0 ? (
-          <li style={{ padding: "8px 0", color: "#777" }}>
-            작성된 게시글이 없습니다.
-          </li>
-        ) : (
-          posts.map((post) => <PostItem key={post.id} post={post} />)
-        )}
-      </ul>
-
+      <div className="p-4">
+        <div className="p-4 bg-white rounded shadow">
+          <h2 className="text-xl font-semibold mb-3">게시글 목록</h2>
+          <ul className="space-y-2">
+            {posts.length === 0 ? (
+              <li className="border border-[#eee] rounded-[10px] mb-[10px] hover:bg-gray-50">
+                작성된 게시글이 없습니다.
+              </li>
+            ) : (
+              posts.map((post) => <PostItem key={post.id} post={post} />)
+            )}
+          </ul>
+        </div>
+      </div>
       <Pagination
         page={page}
         onPageChange={handlePageChange}

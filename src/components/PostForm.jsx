@@ -10,18 +10,23 @@ export default function PostForm({
 }) {
   return (
     <form onSubmit={onSubmit}>
-      <input
-        type="text"
-        placeholder="제목"
-        value={title}
-        onChange={onChangeTitle}
-      />
-      <textarea
-        placeholder="내용"
-        value={content}
-        onChange={onChangeContent}
-      />
-      <button type="submit">{submitText}</button>
+      <div>
+        <input className="border border-[#eee] rounded-[10px] mb-[15px] hover:bg-gray-50 p-1 block w-full"
+          type="text"
+          placeholder="제목을 입력해주세요."
+          value={title}
+          onChange={onChangeTitle}
+        />
+      </div>
+      <div>
+        <textarea className="border border-[#eee] rounded-[10px] mb-[15px] hover:bg-gray-50 p-1 block w-full"
+          placeholder="내용을 입력해주세요."
+          value={content}
+          onChange={onChangeContent}
+          rows={4}
+        />
+      </div>
+      <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">{submitText}</button>
     </form>
   );
 }

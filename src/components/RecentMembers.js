@@ -24,7 +24,7 @@ export default function RecentMembers() {
             <ul className="space-y-2">
                 {members.map((member, idx) => (
                     <li key={idx} className="border border-[#eee] rounded-[10px] mb-[10px] hover:bg-gray-50">
-                        <Link to={`/posts/email/${member.email}`}>
+                        <Link to={`/posts/email/${member.email}`} className="block">
                             {member.nickname}
                         </Link>
                     </li>

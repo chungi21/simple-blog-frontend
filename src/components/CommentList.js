@@ -40,21 +40,14 @@ export default function CommentList({ postId }) {
     };
 
     return (
-        <div>
-            <h3>댓글 목록</h3>
+        <div className="p-4 bg-white rounded shadow mb-[10px] mt-[15px]">
+            <h3 className="text-xl font-semibold mx-auto mb-[10px]">댓글 목록</h3>
             {comments.length === 0 ? (
                 <p>등록된 댓글이 없습니다.</p>
             ) : (
                 comments.map((comment) => (
-                    <div
-                        key={comment.id}
-                        style={{
-                            marginBottom: "1rem",
-                            borderBottom: "1px solid #ccc",
-                            paddingBottom: "1rem",
-                        }}
-                    >
-                        <p>
+                    <div key={comment.id} className="mt-[15px]">
+                        <p className="border border-[#eee] rounded-[10px] mb-[10px] p-1">
                             <strong>{comment.writerNickname}</strong>
                         </p>
 
@@ -70,15 +63,16 @@ export default function CommentList({ postId }) {
                                 onCancel={() => setEditingCommentId(null)}
                             />
                         ) : (
-                            <p>{comment.content}</p>
+                            <p className="border border-[#eee] rounded-[10px] mb-[10px] p-1">{comment.content}</p>
                         )}
 
                         {currentUserId === comment.writerId && editingCommentId !== comment.id && (
-                            <>
-                                <button onClick={() => setEditingCommentId(comment.id)}>수정</button>
-                                <button onClick={() => handleDelete(comment.id)}>삭제</button>
-                            </>
+                            <div className="mb-[10px]">
+                                <button onClick={() => setEditingCommentId(comment.id)} className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 mr-1">수정</button>
+                                <button onClick={() => handleDelete(comment.id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">삭제</button>
+                            </div>
                         )}
+                        <hr/>
                     </div>
                 ))
             )}

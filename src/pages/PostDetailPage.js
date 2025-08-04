@@ -58,26 +58,34 @@ function PostDetail() {
   if (!post) return <p>로딩 중...</p>;
 
   return (
-    <div>
-      <h2>
-        {post.title}{' '}
-        <PostActions postId={post.id} authorEmail={post.member.email} />
-      </h2>
-      <p>{post.content}</p>
+    <div className="max-w-3xl mx-auto">
+      <div className="p-4">
+        <div className="p-4 bg-white rounded shadow mb-[10px]">
 
-      <hr />
+          <div className="text-xl font-semibold mx-auto mb-[10px]">게시물 내용</div>
 
-      <h3>댓글 작성</h3>
-      {isLoggedIn() ? (
-        <CommentForm
-          postId={post.id}
-          onSuccess={() => window.location.reload()} // 댓글 등록 후 새로고침
-        />
-      ) : (
-        <p>로그인 후 댓글을 작성할 수 있습니다.</p>
-      )}
+          <div className="border border-[#eee] rounded-[10px] mb-[10px] p-1">
+            <strong>{post.title}{' '}</strong>
+          </div>
 
-      <CommentList postId={post.id} />
+          <p className="border border-[#eee] rounded-[10px] mb-[10px]">{post.content}</p>
+        </div>
+        <div className="flex justify-between items-center mb-3">
+          
+          <PostActions postId={post.id} authorEmail={post.member.email} />
+        </div>
+        
+        {isLoggedIn() ? (
+          <CommentForm
+            postId={post.id}
+            onSuccess={() => window.location.reload()} // 댓글 등록 후 새로고침
+          />
+        ) : (
+          <p>로그인 후 댓글을 작성할 수 있습니다.</p>
+        )}
+
+        <CommentList postId={post.id} />
+      </div>
     </div>
   );
 }
