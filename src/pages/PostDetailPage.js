@@ -60,21 +60,20 @@ function PostDetail() {
   return (
     <div className="max-w-3xl mx-auto">
       <div className="p-4">
-        <div className="p-4 bg-white rounded shadow mb-[10px]">
 
+        <div className="p-4 bg-white rounded shadow mb-[10px] !text-left">
           <div className="text-xl font-semibold mx-auto mb-[10px]">게시물 내용</div>
-
-          <div className="border border-[#eee] rounded-[10px] mb-[10px] p-1">
+          <div className="mb-[10px] p-2">
             <strong>{post.title}{' '}</strong>
+            <p>{post.content}</p>
           </div>
+          <div className="flex justify-between items-center">
+            <PostActions postId={post.id} authorEmail={post.member.email} />
+          </div>
+        </div>
 
-          <p className="border border-[#eee] rounded-[10px] mb-[10px]">{post.content}</p>
-        </div>
-        <div className="flex justify-between items-center mb-3">
-          
-          <PostActions postId={post.id} authorEmail={post.member.email} />
-        </div>
-        
+
+
         {isLoggedIn() ? (
           <CommentForm
             postId={post.id}

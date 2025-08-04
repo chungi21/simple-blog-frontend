@@ -40,7 +40,7 @@ export default function PostEditPage() {
     return (
     <div className="max-w-3xl mx-auto p-4">
       <div className="p-4 bg-white rounded shadow">
-        <h2 className="text-xl font-semibold mb-3">게시글 수정</h2>
+        <h2 className="text-xl font-semibold mb-3 text-left">게시글 수정</h2>
             <PostForm
                 title={title}
                 content={content}

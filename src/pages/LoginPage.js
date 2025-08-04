@@ -41,7 +41,7 @@ export default function LoginPage() {
   return (
     <div className="max-w-3xl mx-auto p-4">
       <div className="p-4 bg-white rounded shadow">
-        <h2 className="text-xl font-semibold mb-3">로그인</h2>
+        <h2 className="text-xl font-semibold mb-3 !text-left">로그인</h2>
         <LoginForm
           email={email}
           password={password}

@@ -60,11 +60,11 @@ export default function PostListPage() {
         </div>
       )}
       <div className="p-4">
-        <div className="p-4 bg-white rounded shadow">
+        <div className="p-4 bg-white rounded shadow !text-left">
           <h2 className="text-xl font-semibold mb-3">게시글 목록</h2>
           <ul className="space-y-2">
             {posts.length === 0 ? (
-              <li className="border border-[#eee] rounded-[10px] mb-[10px] hover:bg-gray-50">
+              <li>
                 작성된 게시글이 없습니다.
               </li>
             ) : (

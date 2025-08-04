@@ -137,3 +137,16 @@ a {
     display: block;
   }
 }
+
+/* 메인 */
+.recent-member li{
+  position: relative;
+}
+
+.recent-member li:after{
+  content:">";
+  position: absolute;
+  right: 4px;
+  top:7px;
+  color: #aaa;
+}
