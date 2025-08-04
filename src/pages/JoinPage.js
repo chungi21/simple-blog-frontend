@@ -36,21 +36,23 @@ export default function JoinPage() {
             }
         }
     };
-    
+
     return (
-        <div>
-            <h2>회원가입</h2>
-            <MemberForm
-                email={email}
-                nickname={nickname}
-                password={password}
-                role={role}
-                onChangeEmail={(e) => setEmail(e.target.value)}
-                onChangeNickname={(e) => setNickname(e.target.value)}
-                onChangePassword={(e) => setPassword(e.target.value)}
-                onSubmit={handleSubmit}
-                submitText="가입"
-            />
+        <div className="max-w-3xl mx-auto p-4">
+            <div className="p-4 bg-white rounded shadow">
+                <h2 className="text-xl font-semibold mb-3">회원가입</h2>
+                <MemberForm
+                    email={email}
+                    nickname={nickname}
+                    password={password}
+                    role={role}
+                    onChangeEmail={(e) => setEmail(e.target.value)}
+                    onChangeNickname={(e) => setNickname(e.target.value)}
+                    onChangePassword={(e) => setPassword(e.target.value)}
+                    onSubmit={handleSubmit}
+                    submitText="가입"
+                />
+            </div>
         </div>
     );
 }

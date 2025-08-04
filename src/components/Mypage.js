@@ -29,10 +29,10 @@ export default function MyPage() {
         try {
             const token = localStorage.getItem("accessToken");
             await axios.put(
-                "http://localhost:9000/api/member/me", 
+                "http://localhost:9000/api/member/me",
                 {
                     nickname,
-                    password, 
+                    password,
                 },
                 {
                     headers: {
@@ -52,18 +52,20 @@ export default function MyPage() {
     if (loading) return <p>로딩 중...</p>;
 
     return (
-        <div>
-            <h2>회원정보 수정</h2>
-            <MemberForm
-                email={email}
-                nickname={nickname}
-                password={password}
-                onChangeEmail={() => { }} 
-                onChangeNickname={(e) => setNickname(e.target.value)}
-                onChangePassword={(e) => setPassword(e.target.value)}
-                onSubmit={handleSubmit}
-                submitText="수정"
-            />
+        <div className="max-w-3xl mx-auto p-4">
+            <div className="p-4 bg-white rounded shadow">
+                <h2 className="text-xl font-semibold mb-3">회원정보 수정</h2>
+                <MemberForm
+                    email={email}
+                    nickname={nickname}
+                    password={password}
+                    onChangeEmail={() => { }}
+                    onChangeNickname={(e) => setNickname(e.target.value)}
+                    onChangePassword={(e) => setPassword(e.target.value)}
+                    onSubmit={handleSubmit}
+                    submitText="수정"
+                />
+            </div>
         </div>
     );
 }
