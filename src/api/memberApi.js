@@ -73,3 +73,9 @@ export const fetchMemberByEmail = async (email) => {
   const res = await axiosInstance.get(`/api/member/email/${email}`);
   return res.data;
 };
+
+// 최근 가입한 멤버 목록 가져오기
+export const fetchRecentMembers = async () => {
+  const res = await axiosInstance.get("/api/members/recent");
+  return res.data.data.content || res.data.data;
+};

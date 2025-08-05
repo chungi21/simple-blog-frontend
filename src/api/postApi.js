@@ -4,7 +4,7 @@ const API_BASE = '/api';
 
 // 글 쓰기
 export const createPost = async ({ title, content }) => {
-  const response = await axiosInstance.post(`${API_BASE}/api/posts`, { title, content });
+  const response = await axiosInstance.post(``, { title, content });
   return response.data;
 };
 
@@ -36,7 +36,7 @@ export const updatePost = async (id, updatedData) => {
     return res.data;
 };
 
-// 전체 게시글 목록 조회
+// 게시글 목록 조회
 export const fetchPostList = async (page = 0) => {
   const res = await axiosInstance.get(`/api/posts?page=${page}`);
   return res.data;

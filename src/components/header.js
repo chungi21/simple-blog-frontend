@@ -1,15 +1,16 @@
+// Header.jsx
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { customFetch } from "../utils/request";
 import Cookies from "js-cookie";
-
 
 import {
     isLoggedIn,
     saveCurrentUserEmail,
     saveCurrentUserId,
-    refreshAccessToken, // 추가
+    refreshAccessToken,
+    logout
 } from "../utils/auth";
+
 import { fetchCurrentUser } from "../api/memberApi";
 
 export default function Header() {
@@ -18,18 +19,14 @@ export default function Header() {
     const location = useLocation();
     const [user, setUser] = useState(null);
 
-    // 로그인 상태 업데이트
     useEffect(() => {
         setLogin(isLoggedIn());
         setShowMobileMenu(false);
     }, [location]);
 
-    // 로그아웃
     const handleLogout = async () => {
         try {
-            await customFetch("http://localhost:9000/logout", {
-                method: "POST",
-            });
+            await logout();
             localStorage.removeItem("accessToken");
             localStorage.removeItem("userEmail");
             localStorage.removeItem("userId");
@@ -41,7 +38,6 @@ export default function Header() {
         }
     };
 
-    // 내 정보 가져오기 전에 accessToken 재발급 시도
     useEffect(() => {
         const fetchUserWithRefresh = async () => {
             if (!isLoggedIn()) {
@@ -77,9 +73,7 @@ export default function Header() {
             <nav className="nav desktop-menu">
                 {login ? (
                     <>
-                        {user && (
-                            <Link to={`/posts/email/${user.email}`}>내 블로그</Link>
-                        )}
+                        {user && <Link to={`/posts/email/${user.email}`}>내 블로그</Link>}
                         <Link to="/posts/create">글 쓰기</Link>
                         <Link to="/mypage">내 정보</Link>
                         <button onClick={handleLogout}>로그아웃</button>

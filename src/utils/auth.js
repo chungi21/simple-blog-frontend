@@ -1,3 +1,5 @@
+import { customFetch } from "../utils/request";
+
 // 로그인 여부 확인
 export function isLoggedIn() {
   const token = localStorage.getItem("accessToken");
@@ -40,3 +42,10 @@ export async function refreshAccessToken() {
     return false;
   }
 }
+
+// 로그아웃
+export const logout = async () => {
+  return await customFetch("http://localhost:9000/logout", {
+    method: "POST",
+  });
+};

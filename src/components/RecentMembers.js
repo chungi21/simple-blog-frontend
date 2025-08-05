@@ -1,29 +1,35 @@
+// RecentMembers.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axiosInstance from "../api/axiosInstance"; // 경로 확인 필요
+import { fetchRecentMembers } from "../api/memberApi";
 
 export default function RecentMembers() {
     const [members, setMembers] = useState([]);
 
     useEffect(() => {
-        const fetchRecentMembers = async () => {
+        const loadMembers = async () => {
             try {
-                const res = await axiosInstance.get("/api/members/recent");
-                setMembers(res.data.data.content || res.data.data);
+                const data = await fetchRecentMembers();
+                setMembers(data);
             } catch (error) {
                 console.error("최근 회원 불러오기 실패:", error);
             }
         };
 
-        fetchRecentMembers();
+        loadMembers();
     }, []);
 
     return (
         <div className="p-4 bg-white rounded shadow !text-left">
-            <h2 className="text-xl font-semibold mb-3">새로 개설된 블로그에 방문해보세요!</h2>
+            <h2 className="text-xl font-semibold mb-3">
+                새로 개설된 블로그에 방문해보세요!
+            </h2>
             <ul className="space-y-2 recent-member">
                 {members.map((member, idx) => (
-                    <li key={idx} className="border border-[#eee] rounded-[10px] mb-[10px] hover:bg-gray-50 p-2">
+                    <li
+                        key={idx}
+                        className="border border-[#eee] rounded-[10px] mb-[10px] hover:bg-gray-50 p-2"
+                    >
                         <Link to={`/posts/email/${member.email}`} className="block">
                             {member.nickname}
                         </Link>
