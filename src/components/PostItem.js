@@ -9,7 +9,7 @@ export default function PostItem({ post }) {
 
   return (
     <li onClick={goToDetail} className="border border-[#eee] rounded-[10px] mb-[10px] hover:bg-gray-50 p-2">
-      <strong>{post.title}</strong><br/>{post.content.slice(0, 50)}
+      <strong>{post.title}</strong><br />{post.content.slice(0, 50)}
     </li>
   );
 }

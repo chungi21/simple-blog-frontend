@@ -67,3 +67,9 @@ export const updateCurrentUser = async ({ nickname, password }) => {
     throw err;
   }
 };
+
+// 이메일로 회원 정보 조회
+export const fetchMemberByEmail = async (email) => {
+  const res = await axiosInstance.get(`/api/member/email/${email}`);
+  return res.data;
+};

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PostForm from "../components/PostForm";
-import { customFetch } from "../utils/request"; // customFetch import
+import { createPost } from "../api/postApi";
 
 export default function PostCreatePage() {
   const navigate = useNavigate();
@@ -12,11 +12,7 @@ export default function PostCreatePage() {
     e.preventDefault();
 
     try {
-      const result = await customFetch("http://localhost:9000/api/posts", {
-        method: "POST",
-        body: JSON.stringify({ title, content }),
-      });
-
+      const result = await createPost({ title, content });
       navigate(`/posts/${result.data.id}`);
     } catch (error) {
       alert("게시글 작성 실패");

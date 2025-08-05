@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchPostDetail } from '../api/postApi';
+import { createComment } from '../api/commentApi';
 import PostActions from '../components/PostActions';
 import { isLoggedIn } from '../utils/auth';
 import CommentList from "../components/CommentList";
 import CommentForm from '../components/CommentForm';
-import axios from 'axios';
 
 function PostDetail() {
   const { id } = useParams();
@@ -29,24 +29,9 @@ function PostDetail() {
 
     try {
       setIsSubmitting(true);
-      const token = localStorage.getItem('accessToken');
-
-      const response = await axios.post(
-        'http://localhost:9000/api/comments',
-        {
-          postId: parseInt(id),
-          content: commentContent,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true
-        }
-      );
-
+      await createComment({ postId: parseInt(id), content: commentContent });
       alert('댓글이 등록되었습니다!');
+      window.location.reload();
     } catch (err) {
       console.error(err);
       alert('댓글 등록 실패했습니다.');
@@ -72,12 +57,10 @@ function PostDetail() {
           </div>
         </div>
 
-
-
         {isLoggedIn() ? (
           <CommentForm
             postId={post.id}
-            onSuccess={() => window.location.reload()} // 댓글 등록 후 새로고침
+            onSuccess={() => window.location.reload()}
           />
         ) : (
           <p>로그인 후 댓글을 작성할 수 있습니다.</p>
