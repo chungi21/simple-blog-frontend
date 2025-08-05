@@ -1,8 +1,7 @@
-// pages/LoginPage.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
-import { customFetch } from "../utils/request";
+import { loginUser } from "../api/memberApi";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,24 +12,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const res = await customFetch("http://localhost:9000/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        raw: true, // 헤더 접근이 필요한 경우 raw: true
-      });
-
-      const accessToken = res.headers.get("Authorization");
-
-      const token = accessToken?.startsWith("Bearer ")
-        ? accessToken.slice(7)
-        : accessToken;
-
-      if (!token) {
-        throw new Error("AccessToken 누락");
-      }
-
-      localStorage.setItem("accessToken", token);
-
+      await loginUser({ email, password });
       navigate("/");
     } catch (err) {
       alert("로그인 실패입니다. 이메일과 비밀번호를 확인해주세요.");

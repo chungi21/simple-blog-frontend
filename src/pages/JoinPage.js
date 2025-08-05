@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MemberForm from "../components/MemberForm";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { joinMember } from "../api/memberApi";
 
 export default function JoinPage() {
     const navigate = useNavigate();
@@ -14,12 +14,7 @@ export default function JoinPage() {
         e.preventDefault();
 
         try {
-            await axios.post("http://localhost:9000/api/member/join", {
-                email,
-                nickname,
-                password,
-            });
-
+            await joinMember({ email, nickname, password });
             alert("회원가입 성공!");
             navigate("/login");
         } catch (err) {
