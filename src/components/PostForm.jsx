@@ -1,13 +1,6 @@
 import React from "react";
 
-export default function PostForm({
-  title,
-  content,
-  onChangeTitle,
-  onChangeContent,
-  onSubmit,
-  submitText = "작성",
-}) {
+export default function PostForm({ title, content, onChangeTitle, onChangeContent, onSubmit, submitText = "작성"}) {
   return (
     <form onSubmit={onSubmit}>
       <label><strong className="!text-left block">제목</strong>

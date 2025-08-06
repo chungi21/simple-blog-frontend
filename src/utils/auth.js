@@ -1,4 +1,4 @@
-import { customFetch } from "../utils/request";
+import axiosInstance from "../api/axiosInstance";
 
 // 로그인 여부 확인
 export function isLoggedIn() {
@@ -6,6 +6,7 @@ export function isLoggedIn() {
   return !!token;
 }
 
+// 로그인한 사용자의 email
 export function saveCurrentUserEmail(email) {
   localStorage.setItem("userEmail", email);
 }
@@ -24,15 +25,11 @@ export function getCurrentUserId() {
 // 토큰 재발급
 export async function refreshAccessToken() {
   try {
-    const response = await fetch("http://localhost:9000/auth/refresh", {
-      method: "POST",
-      credentials: "include", // 쿠키 포함
-    });
+    const response = await axiosInstance.post("/auth/refresh");
 
-    if (!response.ok) throw new Error("Token refresh failed");
+    const newToken = response.data.data.accessToken;
 
-    const data = await response.json();
-    const newToken = data.data.accessToken;
+    if (!newToken) throw new Error("새로운 AccessToken이 없습니다.");
 
     localStorage.setItem("accessToken", newToken);
 
@@ -45,7 +42,6 @@ export async function refreshAccessToken() {
 
 // 로그아웃
 export const logout = async () => {
-  return await customFetch("http://localhost:9000/logout", {
-    method: "POST",
-  });
+  const response = await axiosInstance.post("/logout");
+  return response.data;
 };

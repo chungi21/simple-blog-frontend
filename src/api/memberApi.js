@@ -1,13 +1,13 @@
 import axiosInstance from "./axiosInstance";
-import { customFetch } from "../utils/request";
+
+const API_BASE = '/api';
 
 // 현재 로그인한 User 확인
 export const fetchCurrentUser = async () => {
   const token = localStorage.getItem("accessToken");
 
   try {
-    const res = await axiosInstance.get("/api/members/me", {});
-
+    const res = await axiosInstance.get(`${API_BASE}/members/me`, {});
     return res.data;
   } catch (err) {
     throw err;
@@ -17,12 +17,11 @@ export const fetchCurrentUser = async () => {
 // 회원가입 요청
 export const joinMember = async ({ email, nickname, password }) => {
   try {
-    const res = await axiosInstance.post("/api/member/join", {
+    const res = await axiosInstance.post(`${API_BASE}/member/join`, {
       email,
       nickname,
       password,
     });
-
     return res.data;
   } catch (err) {
     throw err; // 에러는 컴포넌트에서 처리하게 던져줌
@@ -32,24 +31,18 @@ export const joinMember = async ({ email, nickname, password }) => {
 // 로그인 요청 함수
 export const loginUser = async ({ email, password }) => {
   try {
-    const res = await customFetch("http://localhost:9000/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-      raw: true, // 헤더를 읽기 위해 필요
-    });
+    const response = await axiosInstance.post("/login", { email, password });
 
-    const accessToken = res.headers.get("Authorization");
-
+    const accessToken = response.headers["authorization"]; // 소문자 키로 접근
     const token = accessToken?.startsWith("Bearer ")
       ? accessToken.slice(7)
       : accessToken;
 
     if (!token) throw new Error("AccessToken 누락");
 
-    // 로컬 스토리지에 저장
     localStorage.setItem("accessToken", token);
 
-    return token; // 토큰 반환 (원하면 생략 가능)
+    return token;
   } catch (error) {
     throw error;
   }
@@ -58,7 +51,7 @@ export const loginUser = async ({ email, password }) => {
 // 로그인 회원 정보 수정하기
 export const updateCurrentUser = async ({ nickname, password }) => {
   try {
-    const res = await axiosInstance.put("/api/member/me", {
+    const res = await axiosInstance.put(`${API_BASE}/member/me`, {
       nickname,
       password,
     });
@@ -70,12 +63,12 @@ export const updateCurrentUser = async ({ nickname, password }) => {
 
 // 이메일로 회원 정보 조회
 export const fetchMemberByEmail = async (email) => {
-  const res = await axiosInstance.get(`/api/member/email/${email}`);
+  const res = await axiosInstance.get(`${API_BASE}/member/email/${email}`);
   return res.data;
 };
 
 // 최근 가입한 멤버 목록 가져오기
 export const fetchRecentMembers = async () => {
-  const res = await axiosInstance.get("/api/members/recent");
+  const res = await axiosInstance.get(`${API_BASE}/members/recent`);
   return res.data.data.content || res.data.data;
 };

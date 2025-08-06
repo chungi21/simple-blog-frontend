@@ -1,15 +1,6 @@
 import React from "react";
 
-export default function MemberForm({
-  email,
-  nickname,
-  password,
-  onChangeEmail,
-  onChangeNickname,
-  onChangePassword,
-  onSubmit,
-  submitText = "가입",
-}) {
+export default function MemberForm({ email, nickname, password, onChangeEmail, onChangeNickname, onChangePassword, onSubmit, submitText = "가입"}) {
   return (
     <form onSubmit={onSubmit}>
       <label><strong className="!text-left block">이메일</strong>

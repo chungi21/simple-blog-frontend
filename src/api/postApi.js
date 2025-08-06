@@ -4,7 +4,7 @@ const API_BASE = '/api';
 
 // 글 쓰기
 export const createPost = async ({ title, content }) => {
-  const response = await axiosInstance.post(``, { title, content });
+  const response = await axiosInstance.post(`${API_BASE}/posts`, { title, content });
   return response.data;
 };
 
@@ -38,12 +38,12 @@ export const updatePost = async (id, updatedData) => {
 
 // 게시글 목록 조회
 export const fetchPostList = async (page = 0) => {
-  const res = await axiosInstance.get(`/api/posts?page=${page}`);
+  const res = await axiosInstance.get(`${API_BASE}/posts?page=${page}`);
   return res.data;
 };
 
 // 특정 이메일의 게시글 목록 조회
 export const fetchPostListByEmail = async (email, page = 0) => {
-  const res = await axiosInstance.get(`/api/posts/email/${email}?page=${page}`);
+  const res = await axiosInstance.get(`${API_BASE}/posts/email/${email}?page=${page}`);
   return res.data;
 };
