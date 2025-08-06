@@ -2,7 +2,7 @@ import axiosInstance from "../api/axiosInstance";
 
 // 로그인 여부 확인
 export function isLoggedIn() {
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");  
   return !!token;
 }
 
@@ -22,8 +22,16 @@ export function getCurrentUserId() {
   return id ? parseInt(id) : null;
 }
 
+// 쿠키에서 refreshCookie 존재 여부 확인
+function hasRefreshCookie() {
+  const cookies = document.cookie.split("; ");
+  return cookies.some((cookie) => cookie.startsWith("refreshCookie="));
+}
+
 // 토큰 재발급
 export async function refreshAccessToken() {
+
+  if (!hasRefreshCookie()) return false;
   try {
     const response = await axiosInstance.post("/auth/refresh");
 
