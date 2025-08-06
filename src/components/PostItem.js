@@ -4,7 +4,7 @@ export default function PostItem({ post }) {
   const navigate = useNavigate();
 
   const goToDetail = () => {
-    navigate(`/posts/${post.id}`);
+    navigate(`/posts/${post.id}`, { state: { email: post.member.email, page: post.page } });
   };
 
   return (

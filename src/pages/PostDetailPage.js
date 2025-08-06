@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchPostDetail } from '../api/postApi';
 import { createComment } from '../api/commentApi';
 import PostActions from '../components/PostActions';
@@ -12,6 +12,12 @@ function PostDetail() {
   const [post, setPost] = useState(null);
   const [commentContent, setCommentContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const email = location.state?.email;
+  const page = location.state?.page;
 
   useEffect(() => {
     fetchPostDetail(id)
@@ -48,12 +54,22 @@ function PostDetail() {
 
         <div className="p-4 bg-white rounded shadow mb-[10px] !text-left">
           <div className="text-xl font-semibold mx-auto mb-[10px]">게시물 내용</div>
+
           <div className="mb-[10px] p-2">
             <strong>{post.title}{' '}</strong>
             <p>{post.content}</p>
           </div>
           <div className="flex justify-between items-center">
+            {email && (
+              <button
+                onClick={() => navigate(`/posts/email/${email}?page=${page || 0}`)}
+                className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+              >
+                목록 보기
+              </button>
+            )}
             <PostActions postId={post.id} authorEmail={post.member.email} />
+            
           </div>
         </div>
 
