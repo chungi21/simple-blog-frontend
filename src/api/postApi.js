@@ -22,20 +22,20 @@ export const fetchPostDetail = async (postId) => {
 };
 
 // 글 삭제
-export const deletePost = async (id) => {
-  const res = await axiosInstance.delete(`${API_BASE}/posts/${id}`);
+export const deletePost = async (postId) => {
+  const res = await axiosInstance.delete(`${API_BASE}/posts/${postId}`);
   return res.data;
 };
 
 // 글 수정 Form(수정용 게시글 불러오기)
-export const fetchPostForEdit = async (id) => {
-  const res = await axiosInstance.get(`${API_BASE}/posts/${id}/edit`);
+export const fetchPostForEdit = async (postId) => {
+  const res = await axiosInstance.get(`${API_BASE}/posts/${postId}/form`);
   return res.data.data;
 };
 
 // 글 수정
-export const updatePost = async (id, updatedData) => {
-  const res = await axiosInstance.put(`${API_BASE}/posts/${id}`, updatedData, {
+export const updatePost = async (postId, updatedData) => {
+  const res = await axiosInstance.put(`${API_BASE}/posts/${postId}`, updatedData, {
     headers: {
       "Content-Type": "application/json",
     },

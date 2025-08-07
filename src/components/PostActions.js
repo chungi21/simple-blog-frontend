@@ -17,14 +17,25 @@ export default function PostActions({ postId, authorEmail }) {
             await deletePost(postId);
             alert("삭제되었습니다.");
             navigate(`/posts/email/${currentUserEmail}`);
-        } catch (error) {
-            alert("삭제 실패");
-            console.error(error);
+        } catch (err) {
+            if (err.response?.status === 401) {
+                alert("로그인이 필요합니다.");
+                navigate("/login");
+            } else if (err.response?.status === 403) {
+                alert("작성자만 삭제할 수 있습니다.");
+                navigate(`/posts/${postId}`);
+            } else if (err.response?.status === 404) {
+                alert("게시글이 존재하지 않습니다.");
+                navigate("/");
+            } else {
+                alert("게시글 정보를 불러오지 못했습니다.");
+            }
+            console.error(err);
         }
     };
 
     const handleEdit = () => {
-        navigate(`/posts/${postId}/edit`);
+        navigate(`/posts/${postId}/form`);
     };
 
     if (!isAuthor) return null;

@@ -12,30 +12,24 @@ export default function PostEditPage() {
     const token = localStorage.getItem("accessToken");
 
     useEffect(() => {
-        // 수정용 게시글 데이터 불러오기
+        
         fetchPostForEdit(id)
             .then((data) => {
                 setTitle(data.title);
                 setContent(data.content);
             })
             .catch((err) => {
-                if (err.response) {
-                    const { status } = err.response;
-
-                    if (status === 401) {
-                        alert("로그인이 필요합니다.");
-                        navigate("/login");
-                    } else if (status === 403) {
-                        alert("작성자만 수정할 수 있습니다.");
-                        navigate(`/posts/${id}`);
-                    } else if (status === 404) {
-                        alert("게시글이 존재하지 않습니다.");
-                        navigate("/posts");
-                    } else {
-                        alert("게시글 정보를 불러오지 못했습니다.");
-                    }
+                if (err.response?.status === 401) {
+                    alert("로그인이 필요합니다.");
+                    navigate("/login");
+                } else if (err.response?.status === 403) {
+                    alert("작성자만 수정할 수 있습니다.");
+                    navigate(`/posts/${id}`);
+                } else if (err.response?.status === 404) {
+                    alert("게시글이 존재하지 않습니다.");
+                    navigate("/");
                 } else {
-                    alert("서버에 연결할 수 없습니다.");
+                    alert("게시글 정보를 불러오지 못했습니다.");
                 }
 
                 console.error(err);
