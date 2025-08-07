@@ -1,53 +1,46 @@
-import axiosInstance from "../api/axiosInstance"; 
+import axiosInstance from "../api/axiosInstance";
 
-const API_BASE = '/api';  
+const API_BASE = '/api';
 
-// 글 작성 Form 요청
+// 글 작성 Form
 export const fetchPostForm = async () => {
-  try {
-    const res = await axiosInstance.get(`${API_BASE}/posts/form`);
-    return res.data.data;
-  } catch (error) {
-    if (error.response?.status === 401) {
-      throw new Error("로그인이 필요합니다.");
-    }
-    throw error;
-  }
+  const res = await axiosInstance.get(`${API_BASE}/posts/form`);
+  return res.data.data;
 };
 
 
 // 글 쓰기
 export const createPost = async ({ title, content }) => {
-  const response = await axiosInstance.post(`${API_BASE}/posts`, { title, content });
-  return response.data;
+  const res = await axiosInstance.post(`${API_BASE}/posts`, { title, content });
+  return res.data;
 };
 
 // 글 상세페이지
 export const fetchPostDetail = async (postId) => {
-    const res = await axiosInstance.get(`${API_BASE}/posts/${postId}`);
-    return res.data.data;
+  const res = await axiosInstance.get(`${API_BASE}/posts/${postId}`);
+  return res.data.data;
 };
 
 // 글 삭제
 export const deletePost = async (id) => {
-    const res = await axiosInstance.delete(`${API_BASE}/posts/${id}`);
-    return res.data;
+  const res = await axiosInstance.delete(`${API_BASE}/posts/${id}`);
+  return res.data;
 };
 
 // 글 수정 Form(수정용 게시글 불러오기)
 export const fetchPostForEdit = async (id) => {
-    const res = await axiosInstance.get(`${API_BASE}/posts/${id}/edit`);
-    return res.data.data;
+  const res = await axiosInstance.get(`${API_BASE}/posts/${id}/edit`);
+  return res.data.data;
 };
 
 // 글 수정
 export const updatePost = async (id, updatedData) => {
-    const res = await axiosInstance.put(`${API_BASE}/posts/${id}`, updatedData, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    return res.data;
+  const res = await axiosInstance.put(`${API_BASE}/posts/${id}`, updatedData, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res.data;
 };
 
 // 게시글 목록 조회

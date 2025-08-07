@@ -15,7 +15,7 @@ export default function PostCreatePage() {
         const formData = await fetchPostForm();
         setWriter(formData.writer);
       } catch (error) {
-        if (error.message === "로그인이 필요합니다.") {
+        if (error.response?.status === 401) {
           alert("로그인이 필요한 서비스입니다");
           navigate("/login");
         } else {
@@ -34,8 +34,13 @@ export default function PostCreatePage() {
       const result = await createPost({ title, content });
       navigate(`/posts/${result.data.id}`);
     } catch (error) {
-      alert("게시글 작성 실패");
-      console.error(error);
+      if (error.response?.status === 403) {
+        alert("작성 권한이 없습니다.");
+        navigate("/login");
+      } else {
+        alert("게시글 작성 실패");
+        console.error(error);
+      }
     }
   };
 

@@ -9,6 +9,7 @@ export default function PostForm({ title, content, onChangeTitle, onChangeConten
           placeholder="제목을 입력해주세요."
           value={title}
           onChange={onChangeTitle}
+          required
         />
       </label>
       <label><strong className="!text-left block">내용</strong>
@@ -17,6 +18,7 @@ export default function PostForm({ title, content, onChangeTitle, onChangeConten
           value={content}
           onChange={onChangeContent}
           rows={4}
+          required
         />
       </label>
       <div className="!text-right">
