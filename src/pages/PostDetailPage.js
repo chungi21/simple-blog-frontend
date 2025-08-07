@@ -8,7 +8,7 @@ import CommentList from "../components/CommentList";
 import CommentForm from '../components/CommentForm';
 
 function PostDetail() {
-  const { id } = useParams();
+  const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [commentContent, setCommentContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,14 +20,14 @@ function PostDetail() {
   const page = location.state?.page;
 
   useEffect(() => {
-    fetchPostDetail(id)
+    fetchPostDetail(postId)
       .then((data) => {
         setPost(data);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, [id]);
+  }, [postId]);
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -35,12 +35,12 @@ function PostDetail() {
 
     try {
       setIsSubmitting(true);
-      await createComment({ postId: parseInt(id), content: commentContent });
-      alert('댓글이 등록되었습니다!');
+      await createComment({ postId: parseInt(postId), content: commentContent });
+      alert("댓글이 등록되었습니다!");
       window.location.reload();
     } catch (err) {
       console.error(err);
-      alert('댓글 등록 실패했습니다.');
+      alert("댓글 등록 실패했습니다.");
     } finally {
       setIsSubmitting(false);
     }

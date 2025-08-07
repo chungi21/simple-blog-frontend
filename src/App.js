@@ -43,9 +43,15 @@ function App() {
           {/* 이메일로 필터된 조회 */}
           <Route path="/posts/email/:email" element={<PostListPage />} />
 
-          <Route path="/posts/:id" element={<PostDetailPage />} />
+          <Route path="/posts/:postId" element={<PostDetailPage />} />
 
-          <Route path="/posts/:id/edit" element={<PostEditPage />} />
+          <Route
+            path="/posts/:id/edit"
+            element={
+              <ProtectedRoute>
+                <PostEditPage />
+              </ProtectedRoute>
+            } />
 
           <Route
             path="/posts/create"

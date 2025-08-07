@@ -19,7 +19,25 @@ export default function PostEditPage() {
                 setContent(data.content);
             })
             .catch((err) => {
-                alert("게시글 정보를 불러오지 못했습니다.");
+                if (err.response) {
+                    const { status } = err.response;
+
+                    if (status === 401) {
+                        alert("로그인이 필요합니다.");
+                        navigate("/login");
+                    } else if (status === 403) {
+                        alert("작성자만 수정할 수 있습니다.");
+                        navigate(`/posts/${id}`);
+                    } else if (status === 404) {
+                        alert("게시글이 존재하지 않습니다.");
+                        navigate("/posts");
+                    } else {
+                        alert("게시글 정보를 불러오지 못했습니다.");
+                    }
+                } else {
+                    alert("서버에 연결할 수 없습니다.");
+                }
+
                 console.error(err);
             });
     }, [id, token]);
@@ -38,18 +56,18 @@ export default function PostEditPage() {
     };
 
     return (
-    <div className="max-w-3xl mx-auto p-4">
-      <div className="p-4 bg-white rounded shadow">
-        <h2 className="text-xl font-semibold mb-3 text-left">게시글 수정</h2>
-            <PostForm
-                title={title}
-                content={content}
-                onChangeTitle={(e) => setTitle(e.target.value)}
-                onChangeContent={(e) => setContent(e.target.value)}
-                onSubmit={handleSubmit}
-                submitText="수정"
-            />
+        <div className="max-w-3xl mx-auto p-4">
+            <div className="p-4 bg-white rounded shadow">
+                <h2 className="text-xl font-semibold mb-3 text-left">게시글 수정</h2>
+                <PostForm
+                    title={title}
+                    content={content}
+                    onChangeTitle={(e) => setTitle(e.target.value)}
+                    onChangeContent={(e) => setContent(e.target.value)}
+                    onSubmit={handleSubmit}
+                    submitText="수정"
+                />
+            </div>
         </div>
-    </div>
     );
 }

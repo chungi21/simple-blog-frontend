@@ -1,12 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PostForm from "../components/PostForm";
-import { createPost } from "../api/postApi";
+import { createPost, fetchPostForm } from "../api/postApi";
 
 export default function PostCreatePage() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [writer, setWriter] = useState(null);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const formData = await fetchPostForm();
+        setWriter(formData.writer);
+      } catch (error) {
+        if (error.message === "로그인이 필요합니다.") {
+          alert("로그인이 필요한 서비스입니다");
+          navigate("/login");
+        } else {
+          console.error("글 쓰기 작성 페이지 불러오기 실패:", error);
+        }
+      }
+    };
+
+    loadData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
