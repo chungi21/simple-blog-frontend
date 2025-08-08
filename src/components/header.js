@@ -100,7 +100,7 @@ export default function Header() {
                             <>
                                 {user && (
                                     <Link
-                                        to={`/posts/email/${user.email}`}
+                                        to={`/posts?email=${user.email}`}
                                         onClick={() => setShowMobileMenu(false)}
                                     >
                                         내 블로그

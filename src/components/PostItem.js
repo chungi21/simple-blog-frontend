@@ -21,15 +21,15 @@ export default function PostItem({ post, email, page }) {
 
   return (
     <li className="border border-[#eee] rounded-[10px] mb-[10px]">
-      <div onClick={goToDetail} className="hover:bg-gray-50 p-2">
+      <div onClick={goToDetail} className="hover:bg-gray-50 p-2 cursor-pointer">
         <strong>{post.title}</strong>
         <br />
         {post.content.slice(0, 50)}
       </div>
       {!email && (
         <div className="p-2">
-          <button onClick={goToBlog}>
-            작성자 {post.member.nickname}님의 블로그 방문하기
+          <button onClick={goToBlog} className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600">
+            {post.member.nickname}님의 블로그 방문하기
           </button>
         </div>
       )}

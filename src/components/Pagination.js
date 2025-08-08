@@ -19,11 +19,25 @@ export default function Pagination({ page, totalPages, onPageChange }) {
   const goNext = () => onPageChange(Math.min(page + 1, totalPages - 1));
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
-      <button onClick={goFirst} disabled={currentPage <= 1}>
+    <div className="flex justify-center mt-5 mb-5 space-x-1">
+      <button
+        onClick={goFirst}
+        disabled={currentPage <= 1}
+        className={`px-3 py-1 rounded border text-sm ${currentPage <= 1
+          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+          : "bg-white hover:bg-gray-100"
+          }`}
+      >
         {"<<"}
       </button>
-      <button onClick={goPrev} disabled={currentPage <= 1}>
+      <button
+        onClick={goPrev}
+        disabled={currentPage <= 1}
+        className={`px-3 py-1 rounded border text-sm ${currentPage <= 1
+          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+          : "bg-white hover:bg-gray-100"
+          }`}
+      >
         {"<"}
       </button>
 
@@ -31,22 +45,36 @@ export default function Pagination({ page, totalPages, onPageChange }) {
         <button
           key={p}
           onClick={() => onPageChange(p - 1)}
-          style={{
-            fontWeight: p === currentPage ? "bold" : "normal",
-            textDecoration: p === currentPage ? "underline" : "none",
-            margin: "0 4px",
-          }}
+          className={`px-3 py-1 rounded border text-sm ${p === currentPage
+            ? "bg-blue-100 font-bold underline"
+            : "bg-white hover:bg-gray-100"
+            }`}
         >
           {p}
         </button>
       ))}
 
-      <button onClick={goNext} disabled={currentPage >= totalPages}>
+      <button
+        onClick={goNext}
+        disabled={currentPage >= totalPages}
+        className={`px-3 py-1 rounded border text-sm ${currentPage >= totalPages
+          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+          : "bg-white hover:bg-gray-100"
+          }`}
+      >
         {">"}
       </button>
-      <button onClick={goLast} disabled={currentPage >= totalPages}>
+      <button
+        onClick={goLast}
+        disabled={currentPage >= totalPages}
+        className={`px-3 py-1 rounded border text-sm ${currentPage >= totalPages
+          ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+          : "bg-white hover:bg-gray-100"
+          }`}
+      >
         {">>"}
       </button>
     </div>
+
   );
 }
