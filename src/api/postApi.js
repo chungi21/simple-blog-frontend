@@ -43,14 +43,23 @@ export const updatePost = async (postId, updatedData) => {
   return res.data;
 };
 
-// 게시글 목록 조회
-export const fetchPostList = async (page = 0) => {
-  const res = await axiosInstance.get(`${API_BASE}/posts?page=${page}`);
-  return res.data;
-};
+// // 게시글 목록 조회
+// export const fetchPostList = async (page = 0) => {
+//   const res = await axiosInstance.get(`${API_BASE}/posts?page=${page}`);
+//   return res.data;
+// };
 
-// 특정 이메일의 게시글 목록 조회
-export const fetchPostListByEmail = async (email, page = 0) => {
-  const res = await axiosInstance.get(`${API_BASE}/posts/email/${email}?page=${page}`);
+// // 특정 이메일의 게시글 목록 조회
+// export const fetchPostListByEmail = async (email, page = 0) => {
+//   const res = await axiosInstance.get(`${API_BASE}/posts/email/${email}?page=${page}`);
+//   return res.data;
+// };
+
+// 게시글 목록 조회 (전체 + 회원별)
+export const fetchPostList = async (page = 0, email) => {
+  const params = new URLSearchParams({ page });
+  if (email) params.append("email", email);
+
+  const res = await axiosInstance.get(`${API_BASE}/posts?${params.toString()}`);
   return res.data;
 };

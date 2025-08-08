@@ -60,16 +60,22 @@ function PostDetail() {
             <p>{post.content}</p>
           </div>
           <div className="flex justify-between items-center">
-            {email && (
-              <button
-                onClick={() => navigate(`/posts/email/${email}?page=${page || 0}`)}
-                className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
-              >
-                목록 보기
-              </button>
-            )}
+            <button
+              onClick={() => {
+                if (email) {
+                  // 특정 회원 게시글 목록
+                  navigate(`/posts?email=${email}&page=${page || 0}`);
+                } else {
+                  // 전체 게시글 목록
+                  navigate(`/posts?page=${page || 0}`);
+                }
+              }}
+              className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600"
+            >
+              목록 보기
+            </button>
             <PostActions postId={post.id} authorEmail={post.member.email} />
-            
+
           </div>
         </div>
 

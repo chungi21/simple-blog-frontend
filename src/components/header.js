@@ -73,7 +73,7 @@ export default function Header() {
             <nav className="nav desktop-menu">
                 {login ? (
                     <>
-                        {user && <Link to={`/posts/email/${user.email}`}>내 블로그</Link>}
+                        {user && <Link to={`/posts?email=${user.email}`}>내 블로그</Link>}
                         <Link to="/posts/create">글 쓰기</Link>
                         <Link to="/mypage">내 정보</Link>
                         <button onClick={handleLogout}>로그아웃</button>

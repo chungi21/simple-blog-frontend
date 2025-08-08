@@ -1,54 +1,68 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination";
 import PostItem from "../components/PostItem";
-import { fetchPostList, fetchPostListByEmail } from "../api/postApi";
-import { fetchMemberByEmail } from "../api/memberApi"; 
+import { fetchPostList } from "../api/postApi";
+import { fetchMemberByEmail } from "../api/memberApi";
 
 export default function PostListPage() {
-  const { email } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const email = searchParams.get("email");
+  const pageParam = parseInt(searchParams.get("page")) || 0;
+
   const [nickname, setNickname] = useState("");
   const [posts, setPosts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const pageParam = parseInt(searchParams.get("page")) || 0;
   const [page, setPage] = useState(pageParam);
+  const navigate = useNavigate();
 
   // 게시글 목록 요청
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        const data = email
-          ? await fetchPostListByEmail(email, page)
-          : await fetchPostList(page);
-
+        const data = await fetchPostList(page, email);
         setPosts(data.data.content);
         setTotalPages(data.data.totalPages);
       } catch (err) {
-        console.error("게시글 목록 불러오기 실패:", err);
+        if (err.response?.status === 401) {
+          alert("해당 블로그가 없습니다.");
+        } else if (err.response?.status === 404) {
+          alert("해당 블로그의 페이지가 없습니다.");
+        } else {
+          alert("게시글 목록을 불러오지 못했습니다.");
+        }
+
+        navigate("/posts");
       }
     };
 
     loadPosts();
   }, [email, page]);
 
-  // 닉네임 요청
+  // 닉네임 요청 (회원별 조회일 경우만)
   useEffect(() => {
     if (!email) return;
-
     fetchMemberByEmail(email)
-      .then((res) => {
-        setNickname(res.data.nickname);
-      })
+      .then((res) => setNickname(res.data.nickname))
       .catch((err) => {
-        console.error("닉네임 가져오기 실패:", err);
+        if (err.response?.status === 401) {
+          alert("해당 블로그가 없습니다.");
+        } else if (err.response?.status === 404) {
+          alert("해당 블로그의 페이지가 없습니다.");
+        } else {
+          alert("닉네임을 불러오지 못했습니다.");
+        }
+
+        navigate("/posts");
       });
   }, [email]);
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
-    setSearchParams({ page: newPage });
+    const params = {};
+    if (email) params.email = email;
+    params.page = newPage;
+    setSearchParams(params);
   };
 
   return (
@@ -67,7 +81,7 @@ export default function PostListPage() {
             {posts.length === 0 ? (
               <li>작성된 게시글이 없습니다.</li>
             ) : (
-              posts.map((post) => <PostItem key={post.id} post={post} />)
+              posts.map((post) => <PostItem key={post.id} post={post} email={email} page={page} />)
             )}
           </ul>
         </div>

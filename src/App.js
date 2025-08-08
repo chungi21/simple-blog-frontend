@@ -37,11 +37,7 @@ function App() {
             }
           />
 
-          {/* 전체 조회 */}
           <Route path="/posts" element={<PostListPage />} />
-
-          {/* 이메일로 필터된 조회 */}
-          <Route path="/posts/email/:email" element={<PostListPage />} />
 
           <Route path="/posts/:postId" element={<PostDetailPage />} />
 
