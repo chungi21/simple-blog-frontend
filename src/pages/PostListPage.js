@@ -22,6 +22,7 @@ export default function PostListPage() {
       try {
         const data = await fetchPostList(page, email);
         setPosts(data.data.content);
+        console.log("data.data.content :??", data.data.content);
         setTotalPages(data.data.totalPages);
       } catch (err) {
         if (err.response?.status === 401) {
@@ -41,7 +42,11 @@ export default function PostListPage() {
 
   // 닉네임 요청 (회원별 조회일 경우만)
   useEffect(() => {
-    if (!email) return;
+    if (!email) {
+      setNickname("");
+      return;
+    }
+
     fetchMemberByEmail(email)
       .then((res) => setNickname(res.data.nickname))
       .catch((err) => {
@@ -67,13 +72,11 @@ export default function PostListPage() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      {nickname && (
-        <div className="p-4">
-          <h2 className="p-14 bg-white rounded shadow text-3xl font-semibold mb-10">
-            {nickname}님의 블로그
-          </h2>
-        </div>
-      )}
+      <div className="p-4">
+        <h2 className="p-14 bg-white rounded shadow text-3xl font-semibold">
+          {nickname ? `${nickname}님의 블로그` : '회원 전체 게시물'}
+        </h2>
+      </div>
       <div className="p-4">
         <div className="p-4 bg-white rounded shadow !text-left">
           <h2 className="text-xl font-semibold mb-3">게시글 목록</h2>
