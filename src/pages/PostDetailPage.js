@@ -39,8 +39,15 @@ function PostDetail() {
       alert("댓글이 등록되었습니다!");
       window.location.reload();
     } catch (err) {
-      console.error(err);
-      alert("댓글 등록 실패했습니다.");
+      if (err.response?.status === 401) {
+        alert("로그인이 필요합니다.");
+        navigate("/login");
+      } else if (err.response?.status === 404) {
+        alert("게시글이 존재하지 않아 댓글 등록에 실패했습니다.");
+        navigate("/");
+      } else {
+        alert("댓글 등록에 실패했습니다.");
+      }
     } finally {
       setIsSubmitting(false);
     }

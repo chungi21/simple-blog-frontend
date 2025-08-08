@@ -23,7 +23,11 @@ export default function CommentList({ postId }) {
             const data = await fetchCommentsByPostId(postId);
             setComments(data);
         } catch (err) {
-            console.error("댓글 불러오기 실패:", err);
+            if (err.response?.status === 404) {
+                alert("게시글이 존재하지 않습니다.");
+            } else {
+                alert("댓글 불러오기 실패했습니다.");
+            }
         }
     };
 
@@ -34,8 +38,15 @@ export default function CommentList({ postId }) {
             await deleteComment(commentId);
             fetchComments();
         } catch (err) {
-            console.error("삭제 실패:", err);
-            alert("댓글 삭제에 실패했습니다.");
+            if (err.response?.status === 401) {
+                alert("로그인이 필요합니다.");
+            } else if (err.response?.status === 403) {
+                alert("작성자만 삭제 할 수 있습니다.");
+            } else if (err.response?.status === 404) {
+                alert("게시글이 존재하지 않습니다.");
+            } else {
+                alert("댓글 삭제에 실패했습니다.");
+            }
         }
     };
 
