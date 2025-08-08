@@ -4,7 +4,7 @@ const API_BASE = '/api';
 
 // 댓글 쓰기
 export const createComment = async ({ postId, content }) => {
-  const response = await axiosInstance.post(`${API_BASE}/comments`, {
+  const response = await axiosInstance.post(`${API_BASE}/posts/${postId}/comments`, {
     postId,
     content,
   });
@@ -21,9 +21,9 @@ export const updateComment = async ({ commentId, content }) => {
   return response.data;
 };
 
-// 댓글 조회 (게시글 기준으로 조회)
+// 댓글 리스트(게시글 기준으로 조회)
 export const fetchCommentsByPostId = async (postId) => {
-  const res = await axiosInstance.get(`${API_BASE}/comments/post/${postId}`);
+  const res = await axiosInstance.get(`${API_BASE}/post/${postId}/comments`);
   return res.data.data;
 };
 
