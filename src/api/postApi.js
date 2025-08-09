@@ -35,11 +35,7 @@ export const fetchPostForEdit = async (postId) => {
 
 // 글 수정
 export const updatePost = async (postId, updatedData) => {
-  const res = await axiosInstance.put(`${API_BASE}/posts/${postId}`, updatedData, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const res = await axiosInstance.put(`${API_BASE}/posts/${postId}`, updatedData);
   return res.data;
 };
 

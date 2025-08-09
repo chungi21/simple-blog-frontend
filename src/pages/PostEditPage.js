@@ -9,10 +9,8 @@ export default function PostEditPage() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    const token = localStorage.getItem("accessToken");
-
     useEffect(() => {
-        
+
         fetchPostForEdit(id)
             .then((data) => {
                 setTitle(data.title);
@@ -34,13 +32,13 @@ export default function PostEditPage() {
 
                 console.error(err);
             });
-    }, [id, token]);
+    }, [id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await updatePost(id, { title, content }, token);
+            await updatePost(id, { title, content });
             alert("게시글이 수정되었습니다.");
             navigate(`/posts/${id}`);
         } catch (err) {
