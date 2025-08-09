@@ -11,13 +11,9 @@ export default function MyPage() {
   useEffect(() => {
     fetchCurrentUser()
       .then((res) => {
-      const userData = res.data; 
-      setEmail(userData.email);
-      setNickname(userData.nickname);
-
-      console.log("userData : ", userData);
-      console.log("email : ", userData.email);
-      console.log("nickname : ", userData.nickname);
+        const userData = res.data;
+        setEmail(userData.email);
+        setNickname(userData.nickname);
         setLoading(false);
       })
       .catch((err) => {
@@ -45,10 +41,11 @@ export default function MyPage() {
       <div className="p-4 bg-white rounded shadow">
         <h2 className="text-xl font-semibold mb-3 !text-left">회원정보 수정</h2>
         <MemberForm
+          mode="edit"
           email={email}
           nickname={nickname}
           password={password}
-          onChangeEmail={() => {}}
+          onChangeEmail={() => { }}
           onChangeNickname={(e) => setNickname(e.target.value)}
           onChangePassword={(e) => setPassword(e.target.value)}
           onSubmit={handleSubmit}

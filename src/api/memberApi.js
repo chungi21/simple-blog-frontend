@@ -72,3 +72,19 @@ export const fetchRecentMembers = async () => {
   const res = await axiosInstance.get(`${API_BASE}/members/recent`);
   return res.data.data.content || res.data.data;
 };
+
+// 이메일 중복 체크(회원가입에 사용)
+export const checkEmailExists = async (email) => {
+  const res = await axiosInstance.get(`${API_BASE}/members/check-email`, {
+    params: { email },
+  });
+  return res.data;
+};
+
+// 닉네임 중복 체크(회원가입, 수정에 사용)
+export const checkNicknameExists = async (nickname) => {
+  const res = await axiosInstance.get(`${API_BASE}/members/check-nickname`, {
+    params: { nickname },
+  });
+  return res.data;
+};
