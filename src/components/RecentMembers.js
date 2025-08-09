@@ -29,7 +29,7 @@ export default function RecentMembers() {
                         key={idx}
                         className="border border-[#eee] rounded-[10px] mb-[10px] hover:bg-gray-50 p-2"
                     >
-                        <Link to={`/posts/email/${member.email}`} className="block">
+                        <Link to={`/posts?email=${member.email}`} className="block">
                             {member.nickname}
                         </Link>
                     </li>
