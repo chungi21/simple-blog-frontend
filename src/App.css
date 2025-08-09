@@ -150,3 +150,8 @@ a {
   top:7px;
   color: #aaa;
 }
+
+/* header */
+.bg-gray-600-hover:hover{
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1)) !important;
+}

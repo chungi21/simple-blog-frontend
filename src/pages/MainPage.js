@@ -38,7 +38,7 @@ export default function MainPage() {
                     )}
                 </ul>
                 <div className="text-center">
-                    <Link className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 mr-1" to="">전체 게시글 보러가기</Link>
+                    <Link className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 mr-1" to="/posts">전체 게시글 보러가기</Link>
                 </div>
             </div>
 

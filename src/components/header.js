@@ -71,17 +71,18 @@ export default function Header() {
             </div>
 
             <nav className="nav desktop-menu">
+                <Link to="/posts" className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">전체 글</Link>
                 {login ? (
                     <>
-                        {user && <Link to={`/posts?email=${user.email}`}>내 블로그</Link>}
-                        <Link to="/posts/create">글 쓰기</Link>
-                        <Link to="/mypage">내 정보</Link>
-                        <button onClick={handleLogout}>로그아웃</button>
+                        {user && <Link to={`/posts?email=${user.email}`} className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">내 블로그</Link>}
+                        <Link to="/posts/create" className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">글 쓰기</Link>
+                        <Link to="/mypage" className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">내 정보</Link>
+                        <button onClick={handleLogout} className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">로그아웃</button>
                     </>
                 ) : (
-                    <>
-                        <Link to="/login">로그인</Link>
-                        <Link to="/join">회원가입</Link>
+                    <> 
+                        <Link to="/login" className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">로그인</Link>
+                        <Link to="/join" className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">회원가입</Link>
                     </>
                 )}
             </nav>
@@ -96,6 +97,7 @@ export default function Header() {
                         ✕
                     </button>
                     <div className="mobile-menu-content">
+                        <Link to="/posts">전체 글</Link>
                         {login ? (
                             <>
                                 {user && (
