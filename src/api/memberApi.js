@@ -28,7 +28,7 @@ export const loginUser = async ({ email, password }) => {
 
     if (!token) throw new Error("AccessToken 누락");
 
-    localStorage.setItem("accessToken", token);
+    sessionStorage.setItem("accessToken", token);
 
     return token;
   } catch (error) {
@@ -51,7 +51,7 @@ export const updateCurrentUser = async ({ nickname, password }) => {
 
 // 현재 로그인한 회원 정보 확인(내 정보 수정 Form 에서 사용)
 export const fetchCurrentUser = async () => {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
 
   try {
     const res = await axiosInstance.get(`${API_BASE}/members/me`, {});

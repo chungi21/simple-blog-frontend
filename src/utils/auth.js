@@ -39,7 +39,7 @@ export async function refreshAccessToken() {
 
     if (!newToken) throw new Error("새로운 AccessToken이 없습니다.");
 
-    localStorage.setItem("accessToken", newToken);
+    sessionStorage.setItem("accessToken", newToken);
 
     return true;
   } catch (error) {

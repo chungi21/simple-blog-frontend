@@ -27,7 +27,7 @@ export default function Header() {
     const handleLogout = async () => {
         try {
             await logout();
-            localStorage.removeItem("accessToken");
+            sessionStorage.removeItem("accessToken");
             localStorage.removeItem("userEmail");
             localStorage.removeItem("userId");
             Cookies.remove("refreshCookie", { path: "/" });

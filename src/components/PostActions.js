@@ -4,7 +4,7 @@ import { deletePost } from '../api/postApi';
 
 export default function PostActions({ postId, authorEmail }) {
     const navigate = useNavigate();
-    const token = localStorage.getItem('accessToken');
+    const token = sessionStorage.getItem('accessToken');
     const currentUserEmail = localStorage.getItem('userEmail'); // Header에서 미리 저장해둔 이메일
 
     const isAuthor = currentUserEmail === authorEmail;
