@@ -2,14 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-
-import {
-    isLoggedIn,
-    saveCurrentUserEmail,
-    saveCurrentUserId,
-    refreshAccessToken,
-    logout
-} from "../utils/auth";
+import { isLoggedIn, saveCurrentUserEmail, saveCurrentUserId, refreshAccessToken, logout} from "../utils/auth";
 
 import { fetchCurrentUser } from "../api/memberApi";
 
@@ -72,6 +65,7 @@ export default function Header() {
 
             <nav className="nav desktop-menu">
                 <Link to="/posts" className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">전체 글</Link>
+                <Link to="/members" className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">전체 회원</Link>
                 {login ? (
                     <>
                         {user && <Link to={`/posts?email=${user.email}`} className="px-3 py-1 !bg-gray-500 !text-white rounded bg-gray-600-hover">내 블로그</Link>}
@@ -98,6 +92,7 @@ export default function Header() {
                     </button>
                     <div className="mobile-menu-content">
                         <Link to="/posts">전체 글</Link>
+                        <Link to="/members">전체 회원</Link>
                         {login ? (
                             <>
                                 {user && (

@@ -69,10 +69,19 @@ export const fetchMemberByEmail = async (email) => {
   return res.data;
 };
 
-// 최근 가입한 멤버 목록 가져오기(메인에 가입 멤버 보여주기 위해 사용)
-export const fetchRecentMembers = async () => {
-  const res = await axiosInstance.get(`${API_BASE}/members/recent`);
-  return res.data.data.content || res.data.data;
+// 멤버 리스트 조회 (옵션에 따라 limit 혹은 page 사용)
+export const fetchMembers = async ({ page = 0, limit = null } = {}) => {
+  const params = {};
+  if (limit !== null) {
+    params.limit = limit;
+  } else {
+    params.page = page;
+  }
+
+  const res = await axiosInstance.get(`${API_BASE}/members`, { params });
+  return limit !== null
+    ? res.data.data.content || res.data.data
+    : res.data.data;
 };
 
 // 이메일 중복 체크(회원가입에 사용)
@@ -91,10 +100,8 @@ export const checkNicknameExists = async (nickname) => {
   return res.data;
 };
 
-// 회원 탈퇴 요청 (회원 id 필요)
+// 회원 탈퇴
 export const deleteMemberById = async () => {
-
-
   try {
     const res = await axiosInstance.delete(`${API_BASE}/members/`);
     return res.data;

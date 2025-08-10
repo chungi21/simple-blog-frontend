@@ -11,6 +11,7 @@ import MyPage from './pages/MyPage';
 import Header from './components/header';
 import MainPage from './pages/MainPage';
 import SecessionPage from './pages/SecessionPage';
+import MembersPage from './pages/MembersPage';
 import './App.css';
 
 function App() {
@@ -22,45 +23,21 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-
+          {/* 메인 */}
           <Route path="/" element={<MainPage />} />
 
+          {/* 회원 관련 */}
           <Route path="/login" element={<LoginPage />} />
-
           <Route path="/join" element={<JoinPage />} />
-          <Route path="/secession" element={<SecessionPage />} />
+          <Route path="/mypage" element={<ProtectedRoute><MyPage /></ProtectedRoute>} />
+          <Route path="/secession" element={<ProtectedRoute><SecessionPage /></ProtectedRoute>} />
+          <Route path="/members" element={<MembersPage />} />
 
-
-
-          <Route
-            path="/mypage"
-            element={
-              <ProtectedRoute>
-                <MyPage />
-              </ProtectedRoute>
-            }
-          />
-
+          {/* 게시판 관련 */}
           <Route path="/posts" element={<PostListPage />} />
-
           <Route path="/posts/:postId" element={<PostDetailPage />} />
-
-          <Route
-            path="/posts/:id/form"
-            element={
-              <ProtectedRoute>
-                <PostEditPage />
-              </ProtectedRoute>
-            } />
-
-          <Route
-            path="/posts/create"
-            element={
-              <ProtectedRoute>
-                <PostCreatePage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/posts/:id/form" element={<ProtectedRoute><PostEditPage /></ProtectedRoute>} />
+          <Route path="/posts/create" element={<ProtectedRoute> <PostCreatePage /> </ProtectedRoute>} />
         </Routes>
       </div>
 
