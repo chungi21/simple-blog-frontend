@@ -37,9 +37,10 @@ export const loginUser = async ({ email, password }) => {
 };
 
 // 현재 로그인 회원 정보 수정하기
-export const updateCurrentUser = async ({ nickname, password }) => {
+export const updateCurrentUser = async ({ email, nickname, password }) => {
   try {
     const res = await axiosInstance.put(`${API_BASE}/members/me`, {
+      email,
       nickname,
       password,
     });

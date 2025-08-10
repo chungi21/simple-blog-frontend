@@ -12,6 +12,7 @@ export default function MyPage() {
     fetchCurrentUser()
       .then((res) => {
         const userData = res.data;
+        console.log(userData);
         setEmail(userData.email);
         setNickname(userData.nickname);
         setLoading(false);
@@ -26,7 +27,7 @@ export default function MyPage() {
     e.preventDefault();
 
     try {
-      await updateCurrentUser({ nickname, password });
+      await updateCurrentUser({ email, nickname, password });
       alert("회원정보가 수정되었습니다!");
     } catch (err) {
       console.error(err);
