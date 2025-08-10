@@ -1,4 +1,5 @@
 import axiosInstance from "./axiosInstance";
+import Cookies from "js-cookie";
 
 const API_BASE = '/api';
 
@@ -12,7 +13,7 @@ export const joinMember = async ({ email, nickname, password }) => {
     });
     return res.data;
   } catch (err) {
-    throw err; 
+    throw err;
   }
 };
 
@@ -88,4 +89,21 @@ export const checkNicknameExists = async (nickname) => {
     params: { nickname },
   });
   return res.data;
+};
+
+// 회원 탈퇴 요청 (회원 id 필요)
+export const deleteMemberById = async () => {
+
+
+  try {
+    const res = await axiosInstance.delete(`${API_BASE}/members/`);
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+
+  sessionStorage.removeItem("accessToken");
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userId");
+  Cookies.remove("refreshCookie", { path: "/" });
 };

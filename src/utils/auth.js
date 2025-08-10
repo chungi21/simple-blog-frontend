@@ -2,7 +2,7 @@ import axiosInstance from "../api/axiosInstance";
 
 // 로그인 여부 확인
 export function isLoggedIn() {
-  const token = localStorage.getItem("accessToken");  
+  const token = sessionStorage.getItem("accessToken");  
   return !!token;
 }
 

@@ -10,6 +10,7 @@ import JoinPage from './pages/JoinPage';
 import MyPage from './pages/MyPage';
 import Header from './components/header';
 import MainPage from './pages/MainPage';
+import SecessionPage from './pages/SecessionPage';
 import './App.css';
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
 
           <Route path="/join" element={<JoinPage />} />
+          <Route path="/secession" element={<SecessionPage />} />
+
+
 
           <Route
             path="/mypage"
