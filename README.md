@@ -10,8 +10,8 @@
 
 ## 목차
 * [프로젝트 구조](#프로젝트-구조)
-* [핵심 기능 모듈(API, Routes, Utils)](#핵심-기능-모듈(API,-Routes,-Utils))
-* [React(CSR)장점과 이번 프로젝트 활용 포인트](#React(CSR)장점과-이번-프로젝트-활용-포인트)
+* [핵심 기능 모듈(API, Routes, Utils)](#핵심-기능-모듈api-routes-utils)
+* [React(CSR)장점과 이번 프로젝트 활용 포인트](#reactcsr장점과-이번-프로젝트-활용-포인트)
   <br><br>
 ## 프로젝트 구조
 📂 src  
@@ -81,13 +81,25 @@
 ⇒ 인증 로직이 흩어지지 않고 한 곳에 모여 있어 재사용성과 유지보수성을 높였습니다.
 <br><br>
 ## React(CSR)장점과 이번 프로젝트 활용 포인트
-| React(CSR)<wbr>장점 | 프로젝트에서<wbr> 활용한<wbr> 부분 |
-| :---               | :---                    |
-| **빠른<wbr> 화면<wbr> 전환<wbr><br>(SPA)** | `pages` 디렉토리의 `LoginPage`, `MainPage`, `PostDetailPage` 등은 **라우팅만 바뀌고 전체 새로고침은 일어나지 않음**. → 게시글 작성, 회원가입, 로그인 후 곧바로 해당 페이지로 자연스럽게 이동 가능 |
-| **컴포넌트<wbr><br> 재사용성** | `components` 디렉토리의 `Pagination`, `PostForm`, `MemberForm` 등은 여러 페이지에서 공용으로 사용. → 코드 중복 줄이고 유지보수 용이 |
-| **상태<wbr> 관리와<wbr><br> 동적<wbr>UI** | `CommentForm`, `CommentList`는 댓글 추가/삭제 시 새로고침 없이 리스트만 갱신됨. → CSR 덕분에 실시간 반응형 UI 가능 |
-| **비동기<wbr> 데이터<wbr><br> 처리** | `api` 디렉토리(`axiosInstance`, `commentApi`, `postApi` 등)와 함께 동작하여, 서버 데이터(게시글, 댓글, 회원정보)를 가져와 **렌더링과 데이터 갱신을 분리**. |
-| **인증/인가<wbr> 처리<wbr><br> 용이** | `ProtectedRoute.jsx`와 `auth.jsx` 조합 → 로그인 여부에 따라 접근 가능한 페이지를 클라이언트 측에서 제어. (예: `/mypage` 접근 시 토큰 확인 → 없으면 `/login`으로 리다이렉트) |
-| **사용자<wbr> 경험(UX)<wbr><br> 개선** | 로그인이 필요한 경우 alert 후 즉시 `/login`으로 이동, 새 토큰 자동 발급(`refreshAccessToken`) 등 CSR에서 가능한 **끊김 없는 UX** 제공 |
+* **빠른 화면 전환 (SPA)** : `pages` 디렉토리의 `LoginPage`, `MainPage`, `PostDetailPage` 등은 **라우팅만 바뀌고 전체 새로고침은 일어나지 않습니다.**. → 게시글 작성, 회원가입, 로그인 후 곧바로 해당 페이지로 자연스럽게 이동 가능
+
+* **컴포넌트 재사용성** : `components` 디렉토리의 `Pagination`, `PostForm`, `MemberForm` 등은 여러 페이지에서 공용으로 사용합니다. → 코드 중복 줄이고 유지보수 용이
+
+* **상태 관리와 동적 UI** : `CommentForm`, `CommentList`는 댓글 추가/삭제 시 새로고침 없이 리스트만 갱신됩니다. → CSR 덕분에 실시간 반응형 UI 가능
+
+* **비동기 데이터 처리** : `api` 디렉토리(`axiosInstance`, `commentApi`, `postApi` 등)와 함께 동작하여, 서버 데이터(게시글, 댓글, 회원정보)를 가져와 **렌더링과 데이터 갱신을 분리**합니다.
+* **인증/인가 처리 용이** : `ProtectedRoute.jsx`와 `auth.jsx` 조합하여 로그인 여부에 따라 접근 가능한 페이지를 클라이언트 측에서 제어합니다. → (예: `/mypage` 접근 
+시 토큰 확인 → 없으면 `/login`으로 리다이렉트)
+* **사용자 경험(UX) 개선** : 로그인이 필요한 경우 alert 후 즉시 `/login`으로 이동, 새 토큰 자동 발급(`refreshAccessToken`) 등 CSR에서 가능한 **끊김 없는 UX** 제공합니다.
+
+
+
+
+
+
+
+
+
+
 
 
